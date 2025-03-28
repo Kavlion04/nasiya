@@ -21,7 +21,7 @@ type AuthContextType = {
   resetPinAttempts: () => void;
 };
 
-const PIN = '1111'; // Changed PIN code from 1234 to 1111
+const PIN = '1111'; 
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -33,13 +33,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [pinAttempts, setPinAttempts] = useState(0);
   const [blockUntil, setBlockUntil] = useState<Date | null>(null);
 
-  // Check if user is authenticated on mount
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const token = localStorage.getItem('accessToken');
         if (token) {
-          // Mock user data instead of API call
           const userData = {
             id: '1',
             username: 'admin',
@@ -50,7 +48,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setUser(userData);
           setIsAuthenticated(true);
           
-          // Check if PIN was previously authenticated in this session
           const pinVerified = sessionStorage.getItem('pinVerified');
           if (pinVerified === 'true') {
             setIsPinAuthenticated(true);
@@ -71,10 +68,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (username: string, password: string) => {
     try {
       setIsLoading(true);
-      
-      // Hardcoded login check
       if (username === 'admin' && password === '1111') {
-        // Set mock user data
         const userData = {
           id: '1',
           username: 'admin',
@@ -82,11 +76,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           name: 'Admin User'
         };
         
-        // Store tokens
         localStorage.setItem('accessToken', 'mock-token-for-admin');
         localStorage.setItem('refreshToken', 'mock-refresh-token');
         
-        // Store user data
         setUser(userData);
         setIsAuthenticated(true);
         return true;
@@ -111,18 +103,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const verifyPin = (pin: string) => {
-    // Check if we're in a block period
     if (blockUntil && new Date() < blockUntil) {
       return false;
     }
 
-    // Reset block if it's expired
     if (blockUntil && new Date() > blockUntil) {
       setBlockUntil(null);
       setPinAttempts(0);
     }
 
-    // Verify PIN
     if (pin === PIN) {
       setIsPinAuthenticated(true);
       setPinAttempts(0);
@@ -133,7 +122,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const newAttempts = pinAttempts + 1;
       setPinAttempts(newAttempts);
       
-      // Set block time based on attempts
       if (newAttempts >= 8) {
         const blockTime = new Date();
         blockTime.setMinutes(blockTime.getMinutes() + 3);
@@ -160,7 +148,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     try {
-      // No need to call logout API
       console.log("Logging out");
     } catch (error) {
       console.error('Logout error:', error);

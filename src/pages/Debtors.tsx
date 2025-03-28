@@ -237,17 +237,18 @@ const Debtors = () => {
         )}
       </div>
 
-      <div className="fixed bottom-20 right-4">
+      <div className="sticky bottom-20 left-40 ">
         <Link 
           to="/debtors/add" 
-          className="w-14 h-14 bg-app-blue rounded-full flex items-center justify-center text-white shadow-lg"
+          className="w-48 h-14 bg-app-blue rounded-full flex items-center justify-center text-white shadow-lg"
         >
           <Plus size={24} />
+          <p>Qarzdor qo'shish</p>
         </Link>
       </div>
 
-      {isMobile && (
-        <div className="grid grid-cols-4 border-t border-gray-200 bg-white">
+      { (
+        <div className="grid grid-cols-4 mb-10 border-t border-gray-200 bg-white">
           <Link to="/" className="flex flex-col items-center py-3 text-gray-500">
             <Home size={20} />
             <span className="text-xs mt-1">Asosiy</span>

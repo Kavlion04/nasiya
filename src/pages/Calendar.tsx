@@ -168,7 +168,7 @@ const Calendar = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="grid grid-cols-4 border-t border-gray-200 bg-white">
+      <div className="grid grid-cols-4 border-t mb-10 border-gray-200 bg-white">
         <Link to="/" className="flex flex-col items-center py-3 text-gray-500">
           <Home size={20} />
           <span className="text-xs mt-1">Asosiy</span>
