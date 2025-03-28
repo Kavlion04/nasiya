@@ -58,7 +58,7 @@
 @layer components {
   .phone-frame {
     @apply relative bg-white rounded-[2.5rem] shadow-xl overflow-hidden;
-    width: 375px;
+    width: 1440px;
     height: 812px;
   }
 

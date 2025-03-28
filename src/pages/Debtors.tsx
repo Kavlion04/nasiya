@@ -31,7 +31,6 @@ const Debtors = () => {
         setIsLoading(true);
         const data = await debtors.getAll();
         
-        // Fallback data in case the API fails
         if (!data || data.length === 0) {
           const fallbackData = [
             { id: '1', name: 'Anvarjon Soliyjonov', phone: '+998555555555', totalDebt: 14786000, favorite: true },
@@ -42,7 +41,6 @@ const Debtors = () => {
           ];
           setDebtorsList(fallbackData);
           
-          // Set initial favorites
           const initialFavorites = new Set(
             fallbackData.filter(d => d.favorite).map(d => d.id)
           );
@@ -50,15 +48,13 @@ const Debtors = () => {
         } else {
           setDebtorsList(data);
           
-          // Set initial favorites from API data
-          const initialFavorites = new Set(
+          const initialFavorites: Set<string> = new Set(
             data.filter((d: Debtor) => d.favorite).map((d: Debtor) => d.id)
           );
           setFavoriteIds(initialFavorites);
         }
       } catch (error) {
         console.error('Error fetching debtors:', error);
-        // Set fallback data
         const fallbackData = [
           { id: '1', name: 'Anvarjon Soliyjonov', phone: '+998555555555', totalDebt: 14786000, favorite: true },
           { id: '2', name: 'Farida Karimova', phone: '+998555555556', totalDebt: 9450000 },
@@ -68,7 +64,6 @@ const Debtors = () => {
         ];
         setDebtorsList(fallbackData);
         
-        // Set initial favorites
         const initialFavorites = new Set(
           fallbackData.filter(d => d.favorite).map(d => d.id)
         );
@@ -84,7 +79,6 @@ const Debtors = () => {
   useEffect(() => {
     const handleSearch = async () => {
       if (!debouncedSearch.trim()) {
-        // If search is cleared, fetch all debtors again
         try {
           const data = await debtors.getAll();
           if (data && data.length > 0) {
@@ -102,7 +96,6 @@ const Debtors = () => {
         if (data && data.length > 0) {
           setDebtorsList(data);
         } else {
-          // Filter locally if API search fails
           const fallbackSearch = debtorsList.filter(debtor => 
             debtor.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
             debtor.phone.includes(debouncedSearch)
@@ -111,7 +104,6 @@ const Debtors = () => {
         }
       } catch (error) {
         console.error('Error searching debtors:', error);
-        // Local filtering fallback
         const fallbackSearch = debtorsList.filter(debtor => 
           debtor.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
           debtor.phone.includes(debouncedSearch)
@@ -141,21 +133,18 @@ const Debtors = () => {
       return newFavorites;
     });
     
-    // In a real app, update the database
-    // debtors.update(id, { favorite: !favoriteIds.has(id) });
+   
   };
 
   const sortedDebtors = useMemo(() => {
     return [...debtorsList].sort((a, b) => {
-      // First sort by favorite status
       const aFav = favoriteIds.has(a.id) ? 1 : 0;
       const bFav = favoriteIds.has(b.id) ? 1 : 0;
       
       if (bFav !== aFav) {
-        return bFav - aFav; // Favorites first
+        return bFav - aFav; 
       }
       
-      // Then by name
       return a.name.localeCompare(b.name);
     });
   }, [debtorsList, favoriteIds]);
@@ -248,7 +237,6 @@ const Debtors = () => {
         )}
       </div>
 
-      {/* Add Debtor Button */}
       <div className="fixed bottom-20 right-4">
         <Link 
           to="/debtors/add" 
@@ -258,7 +246,6 @@ const Debtors = () => {
         </Link>
       </div>
 
-      {/* Bottom Navigation */}
       {isMobile && (
         <div className="grid grid-cols-4 border-t border-gray-200 bg-white">
           <Link to="/" className="flex flex-col items-center py-3 text-gray-500">

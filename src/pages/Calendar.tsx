@@ -7,7 +7,6 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // Format dates
   const monthYear = currentMonth.toLocaleDateString('uz-UZ', {
     month: 'long',
     year: 'numeric',
@@ -21,29 +20,22 @@ const Calendar = () => {
     return new Intl.NumberFormat('uz-UZ').format(amount);
   };
 
-  // Generate calendar dates
   const generateCalendarDays = () => {
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
     
-    // First day of the month
     const firstDay = new Date(year, month, 1);
-    // Last day of the month
     const lastDay = new Date(year, month + 1, 0);
     
-    // Day of the week for the first day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-    const firstDayIndex = firstDay.getDay() || 7; // Convert Sunday from 0 to 7
-    
+    const firstDayIndex = firstDay.getDay() || 7; 
     const daysInMonth = lastDay.getDate();
     
     const days = [];
     
-    // Add empty cells for days before the first day of the month
     for (let i = 1; i < firstDayIndex; i++) {
       days.push(null);
     }
     
-    // Add days of the month
     for (let i = 1; i <= daysInMonth; i++) {
       days.push(new Date(year, month, i));
     }
@@ -53,7 +45,6 @@ const Calendar = () => {
 
   const days = generateCalendarDays();
 
-  // Navigation
   const previousMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
   };
@@ -62,7 +53,6 @@ const Calendar = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
   };
 
-  // Check if a date is today
   const isToday = (date: Date) => {
     const today = new Date();
     return (
@@ -72,7 +62,6 @@ const Calendar = () => {
     );
   };
 
-  // Check if a date is selected
   const isSelected = (date: Date) => {
     return (
       date.getDate() === selectedDate.getDate() &&
@@ -94,7 +83,6 @@ const Calendar = () => {
 
       <div className="flex-1 overflow-auto">
         <div className="p-4">
-          {/* Month Navigation */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold">{monthYear}</h2>
             <div className="flex space-x-2">
@@ -113,7 +101,6 @@ const Calendar = () => {
             </div>
           </div>
 
-          {/* Total for Month */}
           <div className="glass-card p-4 mb-6 animate-scale-in">
             <div className="text-sm text-gray-500 mb-1">Qarzdorlik</div>
             <div className="text-xl font-bold">
@@ -121,9 +108,7 @@ const Calendar = () => {
             </div>
           </div>
 
-          {/* Calendar */}
           <div className="glass-card p-4 mb-6 animate-scale-in" style={{ animationDelay: '0.1s' }}>
-            {/* Weekday Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2 text-center text-xs font-medium text-gray-500">
               <div>Du</div>
               <div>Se</div>

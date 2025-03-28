@@ -10,7 +10,7 @@ const api = axios.create({
   },
 });
 
-// Add interceptor to include auth token in requests
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
@@ -22,7 +22,6 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Refresh token logic
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -51,7 +50,6 @@ api.interceptors.response.use(
   }
 );
 
-// Auth APIs
 export const auth = {
   login: async (username: string, password: string) => {
     const response = await api.post('/api/auth/login', { username, password });
@@ -67,7 +65,6 @@ export const auth = {
   },
 };
 
-// Debtor APIs
 export const debtors = {
   getAll: async () => {
     const response = await api.get('/api/debtor');
@@ -95,7 +92,6 @@ export const debtors = {
   },
 };
 
-// Debt APIs
 export const debts = {
   getAll: async () => {
     const response = await api.get('/api/debts');
@@ -119,7 +115,6 @@ export const debts = {
   },
 };
 
-// Store APIs
 export const stores = {
   getAll: async () => {
     const response = await api.get('/api/store');

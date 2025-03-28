@@ -30,7 +30,6 @@ const Dashboard = () => {
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
-        // Set fallback data
         setStats({
           totalDebt: 135214000,
           monthlyDebt: 25,
@@ -47,27 +46,28 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
+    <div className="flex flex-col w-full h-full bg-gray-50">
       <div className="p-4 bg-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
               <User size={20} />
+
             </div>
             <div>
-              <p className="font-semibold">{user?.username || 'Technochat'}</p>
+              <p className="font-semibold">{user?.username || 'nickname'}</p>
+
             </div>
           </div>
-          <Link to="/profile">
+          <Link to={"/Calendar"}>
             <div className="text-gray-400">
-              <UserCircle size={24} />
+              <CalendarDays size={24} />
             </div>
           </Link>
         </div>
       </div>
 
       <div className="flex-1 p-4 overflow-auto">
-        {/* Total Debt Card */}
         <div className="glass-card p-4 mb-6 animate-scale-in">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-gray-500">Umumiy qarzdorlik</span>
@@ -77,14 +77,13 @@ const Dashboard = () => {
             {formatCurrency(stats.totalDebt)} <span className="text-sm font-normal">so'm</span>
           </div>
           <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden mt-2">
-            <div 
-              className="h-full bg-app-green rounded-full" 
+            <div
+              className="h-full bg-app-green rounded-full"
               style={{ width: `${Math.min(stats.monthlyDebt / 100 * 100, 100)}%` }}
             ></div>
           </div>
         </div>
 
-        {/* Statistics Cards */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="glass-card p-4 animate-scale-in" style={{ animationDelay: '0.1s' }}>
             <h3 className="text-sm text-gray-500 mb-2">Kunlik qarzdorlik</h3>
@@ -96,7 +95,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Actions Section */}
         <h2 className="text-lg font-semibold mb-3">Hamyonimgiz</h2>
 
         <div className="glass-card p-4 mb-4 animate-scale-in" style={{ animationDelay: '0.3s' }}>
@@ -119,8 +117,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="grid grid-cols-4 border-t border-gray-200 bg-white">
+      <div className="grid grid-cols-4   border-gray-200 ">
         <Link to="/" className="flex flex-col items-center py-3 text-app-blue">
           <Home size={20} />
           <span className="text-xs mt-1">Asosiy</span>

@@ -10,7 +10,6 @@ const Index = () => {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    // If user is already logged in, redirect to dashboard
     if (isAuthenticated) {
       navigate("/");
     }

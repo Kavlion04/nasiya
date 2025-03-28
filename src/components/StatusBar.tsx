@@ -8,7 +8,6 @@ const StatusBar = () => {
   const [time, setTime] = useState(new Date());
   const [batteryLevel, setBatteryLevel] = useState(100);
 
-  // Update time every minute
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date());
@@ -17,9 +16,8 @@ const StatusBar = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Simulate battery level
   useEffect(() => {
-    // Randomly set battery level between 60-100%
+    
     setBatteryLevel(Math.floor(Math.random() * 40) + 60);
   }, []);
 

@@ -11,7 +11,6 @@ const PinScreen = () => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
   useEffect(() => {
-    // If blocked, start countdown
     if (blockUntil) {
       const interval = setInterval(() => {
         const now = new Date();
